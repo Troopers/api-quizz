@@ -84,7 +84,7 @@ build-db: ## Build the database
 	$(SYMFONY) doctrine:database:create --if-not-exists
 	$(SYMFONY) doctrine:migrations:migrate --no-interaction
 
-database: build-db load-data ## Build the database and load fixtures and data
+database: build-db load-fixtures ## Build the database and load fixtures and data
 
 generate-db-diff: build-db ## Generate a migration by comparing your current database to your mapping information
 	$(SYMFONY) doctrine:migrations:diff
@@ -99,9 +99,6 @@ load-fixtures: ## load fixtures
 
 cache-clear:
 	$(SYMFONY) cache:clear
-
-extract-translation: vendor ## Extract translations
-	$(SYMFONY) translation:update fr --force
 
 shell: ## Enter in web container
 	$(DOCKER_COMPOSE) exec php gosu foo sh
@@ -139,8 +136,7 @@ bin/selenium-server-standalone-2.53.0.jar: ## Download Selenium
 
 .PHONY: install reset clean
 .PHONY: build kill start stop restart
-.PHONY: assets build-db database load-data load-fixtures generate-db-diff
-.PHONY: extract-translation
+.PHONY: assets build-db database load-fixtures generate-db-diff
 .PHONY: test doctrine-schema-validate behat behat-keep-db behat-single php-cs-fixer phpstan
 
 .DEFAULT_GOAL := help
