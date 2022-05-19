@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DataFixtures;
 
 use App\Entity\Answer;
@@ -19,7 +21,7 @@ class AppFixtures extends Fixture
         foreach (['red', 'blue', 'green', 'orange'] as $colour) {
             $answerColour = new Answer();
             $answerColour->setName($colour);
-            $answerColour->setScore($colour == 'red' ? 1 :0);
+            $answerColour->setScore('red' == $colour ? 1 : 0);
             $answerColour->setQuestion($questionColour);
             $manager->persist($answerColour);
         }
@@ -31,7 +33,7 @@ class AppFixtures extends Fixture
         foreach (['to seek the Holy Grail', "I don't know", 'quest answer', 'quest answer'] as $quest) {
             $answerQuest = new Answer();
             $answerQuest->setName($quest);
-            $answerQuest->setScore($quest == 'to seek the Holy Grail' ? 1 :0);
+            $answerQuest->setScore('to seek the Holy Grail' == $quest ? 1 : 0);
             $answerQuest->setQuestion($questionQuest);
             $manager->persist($answerQuest);
         }

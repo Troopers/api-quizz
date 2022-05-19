@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Repository\QuestionRepository;
@@ -21,7 +23,7 @@ class QuestionController extends AbstractController
             foreach ($question->getAnswers() as $answer) {
                 $answerArray[] = [
                     'id' => $answer->getId(),
-                    'name' => $answer->getName()
+                    'name' => $answer->getName(),
                 ];
             }
             $responseArray[] = [
@@ -29,9 +31,10 @@ class QuestionController extends AbstractController
                 'name' => $question->getName(),
                 'description' => $question->getDescription(),
                 'position' => $question->getPosition(),
-                'answers' => $answerArray
+                'answers' => $answerArray,
             ];
         }
+
         return $this->json($responseArray);
     }
 }

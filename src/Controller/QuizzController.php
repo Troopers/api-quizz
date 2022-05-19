@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\Quizz;
@@ -37,9 +39,10 @@ class QuizzController extends AbstractController
         }
         $quizz = new Quizz($score, Uuid::v4()->toBase32());
         $quizzRepository->add($quizz, true);
+
         return $this->json([
             'score' => $score,
-            'code' => $quizz->getCode()
+            'code' => $quizz->getCode(),
         ]);
     }
 }
