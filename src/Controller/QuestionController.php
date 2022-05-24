@@ -30,6 +30,7 @@ class QuestionController extends AbstractController
                 'id' => $question->getId(),
                 'name' => $question->getName(),
                 'description' => $question->getDescription(),
+                'company' => $question->getCompany(),
                 'position' => $question->getPosition(),
                 'answers' => $answerArray,
             ];

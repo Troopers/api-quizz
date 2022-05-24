@@ -15,6 +15,7 @@ class AppFixtures extends Fixture
     {
         $questionColour = new Question();
         $questionColour->setName('What is your favorite colour ?');
+        $questionColour->setCompany('Tim');
         $questionColour->setPosition(3);
         $manager->persist($questionColour);
 
@@ -28,6 +29,7 @@ class AppFixtures extends Fixture
 
         $questionQuest = new Question();
         $questionQuest->setName('What is your quest ?');
+        $questionQuest->setCompany('Arthur');
         $manager->persist($questionQuest);
 
         foreach (['to seek the Holy Grail', "I don't know", 'quest answer', 'quest answer'] as $quest) {
@@ -40,6 +42,7 @@ class AppFixtures extends Fixture
 
         $question = new Question();
         $question->setName('What time is it ?');
+        $question->setCompany('The knights of the round table');
         $manager->persist($question);
 
         $manager->flush();

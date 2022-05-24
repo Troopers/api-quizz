@@ -32,6 +32,11 @@ class Question
     private $description;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $company;
+
+    /**
      * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="question", orphanRemoval=true)
      */
     private $answers;
@@ -71,6 +76,18 @@ class Question
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCompany(): ?string
+    {
+        return $this->company;
+    }
+
+    public function setCompany(string $company): self
+    {
+        $this->company = $company;
 
         return $this;
     }
