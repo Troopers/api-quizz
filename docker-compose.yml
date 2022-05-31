@@ -28,13 +28,6 @@ services:
         ports:
             - "8000:80"
 
-    nodejs:
-        build:
-            context: ./docker/nodejs
-        working_dir: /srv
-        volumes:
-            - ./:/srv/
-
     selenium:
         image: selenium/standalone-chrome:2.53.1
         expose:

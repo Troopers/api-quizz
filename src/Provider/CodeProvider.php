@@ -8,22 +8,30 @@ use Faker\Provider\Base;
 
 class CodeProvider extends Base
 {
-    protected static $codeformat = '{{codeWord}}-{{codeWord}}-{{codeWord}}-{{codeWord}}-{{codeWord}}';
-    protected static $codeWord = ['aigle', 'alouette', 'ane', 'baleine', 'belette', 'bison', 'bouc', 'chevre', 'taureau',
-       'vache', 'buffle', 'bufflonne', 'canard', 'cane', 'carpe', 'castor', 'cerf', 'biche', 'chacal', 'chameau', 'chamelle', 'chat', 'chauve-souris', 'cheval', 'etalon', 'jument',
-       'chevreuil', 'chevrette', 'chien', 'chienne', 'chimpanze', 'chouette', 'cigale', 'cigogne', 'coq', 'poule', 'corbeau', 'coyote', 'crocodile', 'daim', 'dauphin', 'dindon',
-       'dromadaire', 'ecureuil', 'elephant', 'faisan', 'gazelle', 'geai', 'girafe', 'gorille', 'grenouille', 'guepard', 'guepe', 'hamster', 'herisson', 'hibou', 'hippopotame',
-       'hirondelle', 'hyene', 'jaguar', 'jars', 'oie', 'kangourou', 'koala', 'lama', 'lapin', 'lapine', 'leopard', 'lievre', 'hase', 'lion', 'lionne', 'loup', 'louve', 'loutre',
-       'lynx', 'marmotte', 'merle', 'moineau', 'mouton', 'belier', 'brebis', 'ours', 'ourse', 'panda', 'paon', 'paonne', 'perdrix', 'perroquet', 'perruche', 'phoque', 'pie',
-       'pigeon', 'rat', 'renard', 'rhinoceros', 'rossignol', 'sanglier', 'laie', 'serpent', 'singe', 'guenon', 'souris', 'taon', 'taupe', 'tigre', 'tigresse', 'tourterelle', 'vison', 'zebre', ];
+    protected static $codeformat = '{{starWars}}-{{fruit}}-{{starWars}}-{{fruit}}';
+
+    protected static $starWars = ['Anakin', 'Skywalker', 'Luke', 'DarkVador', 'HanSolo', 'BenSolo', 'Chewbacca', 'LeiaOrgana', 'C3PO',
+        'R2D2', 'BB8', 'OwenLars', 'BeruWhitesun', 'WilhuffTarkin', 'ObiWanKenobi', 'Lando', 'Palpatine', 'Yoda', 'Rey', 'PadméAmidala',
+        'DarkMaul', 'KyloRen', 'AmiralAckbar', 'BobaFett', 'Jabba', 'ComteDooku', 'Starkiller', 'JarJarBinks',
+        'Bacara', 'Cody', 'Echo', 'Rex', 'Fives', 'Havoc', 'Jester', 'Omega', 'Tracker', 'AhsokaTano', 'PloKoon', 'MaceWindu', ];
+
+    protected static $fruit = ['Abricot', 'Airelle', 'Amande', 'Ananas', 'Avocat', 'Banane', 'Cassis', 'Cerise', 'Citron', 'Coing',
+        'Datte', 'Figue', 'Fraise', 'Grenade', 'Groseille', 'Kaki', 'Kiwi', 'Kumquat', 'Litchi', 'Mangue', 'Melon', 'Mirabelle',
+        'Mûre', 'Myrtille', 'Nectarine', 'Noisette', 'Noix', 'Orange', 'Papaye', 'Pastèque', 'Pêche', 'Poire', 'Pomme', 'Prune',
+        'Quetsche', 'Raisin', ];
 
     public function code(): string
     {
         return $this->generator->parse(static::$codeformat);
     }
 
-    public function codeWord(): string
+    public function starWars(): string
     {
-        return static::randomElement(static::$codeWord);
+        return static::randomElement(static::$starWars);
+    }
+
+    public function fruit(): string
+    {
+        return static::randomElement(static::$fruit);
     }
 }
