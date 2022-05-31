@@ -13,7 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Uid\Uuid;
 
 class QuizzController extends AbstractController
 {
@@ -23,7 +22,6 @@ class QuizzController extends AbstractController
     public function index(Request $request, AnswerRepository $answerRepository, QuizzRepository $quizzRepository): JsonResponse
     {
         $score = 0;
-        // curl -d '{"quizz":[{"question":"question_id","answer":"answer_id"},{"question":"1","answer":"1"},{"question":"1","answer":"2"},{"question":"3","answer":"2"}]}' -H "Content-Type: application/json" -X POST http://localhost:8000/quizz
         $submittedQuizz = $request->get('quizz');
         $alreadyAnswered = [];
         $faker = Factory::create('fr_FR');

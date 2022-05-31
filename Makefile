@@ -1,11 +1,9 @@
 DOCKER_COMPOSE = docker-compose
 
 EXEC_PHP       = $(DOCKER_COMPOSE) exec -T php /entrypoint
-EXEC_NODE      = $(DOCKER_COMPOSE) exec -T nodejs /entrypoint
 
 SYMFONY        = $(EXEC_PHP) bin/console
 COMPOSER       = $(EXEC_PHP) composer
-YARN           = $(EXEC_NODE) yarn
 QA             = docker run --rm -v `pwd`:/project -w /project jakzal/phpqa:1.62-php7.4-alpine
 
 ##
@@ -19,36 +17,18 @@ composer.lock: composer.json ## Update Composer dependencies and lockfile
 vendor: composer.lock ## Install Composer dependencies
 	$(COMPOSER) install
 
-yarn.lock: package.json ## Update YARN dependencies and lockfile
-	$(YARN) upgrade
-
-node_modules: yarn.lock ## Install YARN dependencies
-	$(YARN) install
-
 ##
 ## Project
 ## -------
 ##
 
-install: start vendor database assets ## Install everything except Docker things
+install: start vendor database ## Install everything except Docker things
 
 reset: kill clean install ## Reset everything (alias of 'install')
 
 clean: stop ## Remove dependencies and built resources
-	rm -Rf web/assets
-	rm -Rf node_modules
 	rm -Rf vendor
-	rm -Rf public/assets
-	rm -Rf public/bundles
-	rm -Rf public/build
-	rm -Rf public/media
 	rm -Rf var/cache/*
-
-assets: node_modules ## Build assets
-	$(YARN) encore dev
-
-watch-assets: assets ## Build assets and watch for changes
-	$(YARN) watch
 
 ##
 ## Docker
@@ -114,7 +94,7 @@ test: php-cs-fixer phpstan ## Run all tests
 doctrine-schema-validate: database ## Run doctrine:schema:validate
 	$(SYMFONY) doctrine:schema:validate
 
-behat: assets database behat-keep-db ## Run Behat tests
+behat: database behat-keep-db ## Run Behat tests
 
 behat-keep-db: ## Run Behat tests without resetting database
 	mkdir -p var/fails
@@ -136,7 +116,7 @@ bin/selenium-server-standalone-2.53.0.jar: ## Download Selenium
 
 .PHONY: install reset clean
 .PHONY: build kill start stop restart
-.PHONY: assets build-db database load-fixtures generate-db-diff
+.PHONY: build-db database load-fixtures generate-db-diff
 .PHONY: test doctrine-schema-validate behat behat-keep-db behat-single php-cs-fixer phpstan
 
 .DEFAULT_GOAL := help
