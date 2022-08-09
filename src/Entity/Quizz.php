@@ -6,9 +6,11 @@ namespace App\Entity;
 
 use App\Repository\QuizzRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=QuizzRepository::class)
+ * @ApiResource()
  */
 class Quizz
 {
