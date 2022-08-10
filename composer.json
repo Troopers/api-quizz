@@ -10,6 +10,7 @@
         "doctrine/doctrine-bundle": "^2.6",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.12",
+        "easycorp/easyadmin-bundle": "^3.5",
         "fzaninotto/faker": "^1.9",
         "symfony-bundles/json-request-bundle": "^4.1",
         "symfony/console": "5.4.*",
