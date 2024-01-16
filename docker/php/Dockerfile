@@ -1,6 +1,6 @@
 FROM composer:2
 
-FROM php:7.4-fpm-alpine3.13
+FROM php:8.1-fpm-alpine3.14
 
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
@@ -10,17 +10,15 @@ RUN apk add --no-cache ca-certificates icu-libs git libtool zlib-dev
 RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS icu-dev
 RUN apk add --no-cache freetype libpng libjpeg libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev
 RUN apk add --update --no-cache libzip-dev
-RUN apk add --no-cache \
-        wkhtmltopdf \
-        xvfb-run \
-        ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family\
-    ;
+RUN apk add --no-cache wkhtmltopdf xvfb ttf-dejavu ttf-droid ttf-freefont ttf-liberation
+
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install intl exif
-RUN docker-php-ext-install -j$(nproc) iconv
+RUN apk add --no-cache  gnu-libiconv
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install -j$(nproc) gd
-RUN pecl install apcu-${APCU_VERSION}
+RUN pecl install -o -f apcu
 RUN docker-php-ext-enable apcu
 RUN docker-php-ext-enable opcache
 RUN docker-php-ext-enable exif

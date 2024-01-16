@@ -14,19 +14,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+    public function __construct(
+        private readonly AdminUrlGenerator $adminUrlGenerator,
+    ) {
+    }
     /**
      * @Route("/admin", name="admin")
      */
     public function index(): Response
     {
-
-        // redirect to some CRUD controller
-        $routeBuilder = $this->get(AdminUrlGenerator::class);
-
-        return $this->redirect($routeBuilder->setController(QuizzCrudController::class)->generateUrl());
-
-
-
+        return $this->redirect($this->adminUrlGenerator->setController(QuestionCrudController::class)->generateUrl());
     }
 
     public function configureDashboard(): Dashboard
@@ -37,9 +34,8 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-         yield MenuItem::linkToCrud('Answer', 'fas fa-list', Answer::class);
-         yield MenuItem::linkToCrud('Question', 'fas fa-list', Question::class);
-         yield MenuItem::linkToCrud('Quizz', 'fas fa-list', Quizz::class);
+        yield MenuItem::linkToDashboard('Dashboard', 'bi bi-house');
+         yield MenuItem::linkToCrud('Question', 'bi bi-list', Question::class);
+         yield MenuItem::linkToCrud('Quizz', 'bi bi-list', Quizz::class);
     }
 }

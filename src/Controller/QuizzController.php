@@ -45,7 +45,9 @@ class QuizzController extends AbstractController
             $code = $faker->code();
         } while (0 != count($quizzRepository->findBy(['code' => $code])));
 
-        $quizz = new Quizz($score, $code);
+        $quizz = new Quizz();
+        $quizz->setCode($code);
+        $quizz->setScore($score);
         $quizzRepository->add($quizz, true);
 
         return $this->json([

@@ -37,10 +37,8 @@ class Quizz
     /**
      * @param $score
      */
-    public function __construct(int $score, string $code)
+    public function __construct()
     {
-        $this->score = $score;
-        $this->code = $code;
         $this->createdAt = new \DateTimeImmutable();
     }
 
